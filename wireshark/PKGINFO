@@ -1,0 +1,9 @@
+name=wireshark
+desktop=wireshark.desktop
+icon=wireshark.png
+screenshot=
+chroot=true
+pkgz=bzip2 expat cairo pango gdk-pixbuf2 gtk2 bison flex gtk2 krb5 libcap libpcap bash gnutls libgcrypt glib2 lua wireshark
+build=bzip2 cairo e2fsprogs expat fontconfig freetype2 gdk-pixbuf2 glibc keyutils libffi libgpg-error libnl libpng libtasn1 libx11 libxau libxcb libxcomposite libxcursor  libxdamage libxdmcp libxfixes libxi libxinerama libxrandr libxrender openssl pango pcre pixman zlib gtk2 bison flex gtk2 krb5 libcap libpcap bash gnutls libgcrypt glib2 lua wireshark
+env==
+exec=/usr/bin/wireshark

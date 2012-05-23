@@ -1,0 +1,45 @@
+# Maintainer: george <rpubaddr0 {at} gmail [dot] com>
+# Contributor: agapito
+# Contributor: kote
+# Contributor: Arch packagers
+
+pkgname=wireshark
+pkgver=1.6.8
+pkgrel=1
+pkgdesc='A free network protocol analyzer for Unix/Linux with a gtk2 frontend.'
+arch=('i686' 'x86_64')
+license=('GPL2')
+depends=('bison' 'flex' 'gtk2' 'krb5' 'libcap' 'libpcap' 'bash' 'gnutls' 'libgcrypt' 'glib2' 'lua')
+install=wireshark.install
+url="http://www.wireshark.org/"
+options=(!libtool)
+source=("http://www.wireshark.org/download/src/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('dcdc5f4904af5804b622c955a30974e2')
+
+build() {
+  cd "${pkgname}-${pkgver}"
+
+  ./configure --prefix=/usr \
+              --with-ssl \
+              --with-zlib=yes \
+              --with-lua
+  make all
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  make DESTDIR="${pkgdir}" install
+
+  rm "${pkgdir}/usr/bin/wireshark"
+  install -Dm755 .libs/wireshark "${pkgdir}/usr/bin/wireshark"
+  for d in 16 32 48; do
+      install -Dm644 image/hi${d}-app-wireshark.png "${pkgdir}/usr/share/icons/hicolor/${d}x${d}/apps/wireshark.png"
+  done
+  install -Dm644 wireshark.desktop "${pkgdir}/usr/share/applications/wireshark.desktop"
+
+  #wireshark uid group is 150
+  chgrp 150 "${pkgdir}/usr/bin/dumpcap"
+  chmod 755 "${pkgdir}/usr/bin/dumpcap"
+  #setcap 'CAP_NET_RAW+eip CAP_NET_ADMIN+eip' "${pkgdir}/usr/bin/dumpcap"
+}
+
