@@ -40,5 +40,8 @@ case "$1" in
     bleachbit) get bleachbit ;;
     wireshark) get wireshark ;;
     --help|-h|'') echo "usage: get-george-bundles [bundle-name]"; exit 0 ;;
+    --update)  wget https://raw.github.com/george2/bundles/master/get-george-bundles -O /tmp/ggb$UID
+               sudo install -Dm755 /tmp/ggb$UID /usr/local/bin/get-george-bundles;
+               echo "All done.";;
     *)         echo "$1 is not a valid bundle name."; exit 1 ;;
 esac
