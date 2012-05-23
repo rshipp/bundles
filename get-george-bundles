@@ -1,0 +1,44 @@
+#!/bin/bash
+# get george's (unofficial) bundles
+BASEURL=""
+CHECKURL=""
+ARCH="$(uname -m)"
+
+get() {
+    echo "==> Checking for the latest version of the $1 bundle for $ARCH..."
+    bver=$(curl -l --silent "${CHECKURL}${ARCH}" | grep "$1" | sed 's/.* //g')
+    if [[ -n $bver ]]; then
+        echo -n "==> Found version $bver. " 
+    else
+        echo "==> This bundle is currently unavailable for your arch ($ARCH)."
+        exit 1
+    fi
+
+    if [[ -e ~/.cinstall/repo/${1}-${bver}-${ARCH}.cb ]]; then
+        echo "You already have this version."
+        exit 1
+    else
+        echo "Downloading..."
+    fi
+
+    if wget "${BASEURL}${ARCH}${1}-${bver}-${ARCH}.cb"; then
+        echo "==> $1-$bver-$ARCH downloaded successfully."
+    else
+        echo "==> Download failed."
+        exit 1
+    fi
+
+    echo "==> Moving bundle to ~/.cinstall/repo/ ..."
+    mv $1-$bver-$ARCH.cb ~/.cinstall/repo/
+
+    echo "==> Starting bundle, in order to generate the needeed files..."
+    cinstall -b ~/.cinstall/repo/$1-$bver-$ARCH.cb
+    echo "==> All done. Have fun!"
+}
+
+case "$1" in
+    bleachbit) get bleachbit ;;
+    wireshark) get wireshark ;;
+    --help|-h|'') echo "usage: get-george-bundles [bundle-name]"; exit 0 ;;
+    *)         echo "$1 is not a valid bundle name."; exit 1 ;;
+esac
