@@ -1,0 +1,19 @@
+# Maintainer: george <rpubaddr0 {at} gmail [dot] com>
+# Contributor: mcder3@gmail.com
+ 
+pkgname=bleachbit
+pkgver=0.9.2
+pkgrel=1
+pkgdesc="Removes Unnecessary files on your hard disk."
+arch=('i686' 'x86_64')
+url="http://bleachbit.sourceforge.net/"
+license=('GPL3')
+depends=('gtk2' 'pygtk' 'python')
+screenshot="http://i.imgur.com/D47Yg.png"
+source=("http://downloads.sourceforge.net/project/${pkgname}/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('3532268df1c069de46450f9967ba0efc')
+ 
+package() {
+  cd "${pkgname}-${pkgver}"
+  make prefix=/usr DESTDIR="${pkgdir}" install
+}

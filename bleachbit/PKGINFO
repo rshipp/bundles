@@ -1,0 +1,9 @@
+name=bleachbit
+desktop=bleachbit.desktop
+icon=bleachbit.png
+chroot=true
+type=
+pkgz=atk gtk2 sqlite3 python pycairo gobject-introspection pygobject pygtk bleachbit
+build=atk gtk2 sqlite3 python pycairo gobject-introspection pygobject pygtk bleachbit
+env==LD_LIBRARY_PATH=$ORIGIN/lib:$ORIGIN/usr/lib:$ORIGIN/usr/lib/gtk-2.0
+exec=/usr/bin/bleachbit
