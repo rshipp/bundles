@@ -1,0 +1,35 @@
+# Maintainer: george <rpubaddr0 {at} gmail [dot] com>
+# Contributor: Chakra Packagers (firefox PKGBUILD)
+
+pkgname=mantra
+_pkgname='Mantra Security Toolkit'
+_codename=Lexicon
+pkgdesc='An innovative web application security framework, built on Mozilla Firefox.'
+url='http://www.getmantra.com/'
+pkgver=0.91
+_pkgver='$_codename - 0.91 Beta'
+pkgrel=1
+arch=('i686' 'x86_64')
+license=('MPL' 'GPL' 'LGPL')
+[[ $CARCH == 'i686' ]] && _tarball="Mantra $_codename Lin32 EN.tar.bz2"
+[[ $CARCH == 'x68_64' ]] && _tarball="Mantra $_codename Lin64 EN.tar.bz2"
+source=("http://downloads.sourceforge.net/project/getmantra/${_pkgname}/${_pkgver}/en-US/${_tarball}"
+        'mantra.desktop')
+md5sums=('54784b658a0ad08ad6f7cfd18ea0a3d7'
+         '2240583ecd8585b5201519ad715410cb')
+depends=('desktop-file-utils' 'libxt' 'mime-types' 'nss' 'shared-mime-info' 'gtk2')
+
+package() {
+  [[ $CARCH == 'i686' ]] && _dir="OWASP Mantra - $_codename -en 32 bit Linux"
+  [[ $CARCH == 'x86_64' ]] && _dir="OWASP Mantra - $_codename -en 64 bit Linux"
+  cd "${srcdir}/${_dir}"
+
+  msg "Packaging..."
+
+  install -dm755 "${pkgdir}/"{opt/mantra,usr/share/applications/}
+  cp -R * "${pkgdir}/opt/mantra/"
+
+  ln -s '/opt/mantra/OWASP Mantra' "${pkgdir}/opt/mantra/mantra"
+  install -m644 "${srcdir}/mantra.desktop" "${pkgdir}/usr/share/applications/"
+  #install -m644 "${srcdir}/firefox/icons/mozicon128.png" "${pkgdir}/usr/share/pixmaps/mantra-icon.png"
+}

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Mantra
+GenericName=Web Browser
+Icon=mantra.png
+Type=Application
+Categories=Application;Network;
+MimeType=text/html
+Encoding=UTF-8
+Exec=/opt/mantra/mantra %u
+Terminal=false
+MultipleArgs=false
+
