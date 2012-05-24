@@ -5,8 +5,9 @@ desktop=mantra.desktop
 screenshot=
 url=http://www.getmantra.com/
 config=external
+chroot=
 pkgz=orbit2 atk libtasn1 gnutls libcups gdk-pixbuf2 freetype2 pango cairo gtk2 desktop-file-utils libxt mime-types nspr nss shared-mime-info wget flashplugin mantra
 build=orbit2 atk libtasn1 gnutls libcups gdk-pixbuf2 freetype2 pango cairo gtk2 desktop-file-utils libxt mime-types nspr nss shared-mime-info wget flashplugin mantra
 env==LD_LIBRARY_PATH=$ORIGIN/opt/mantra/Mantra:$ORIGIN/lib:$ORIGIN/usr/lib:$ORIGIN/usr/lib/gtk-2.0,,,MOZ_PLUGIN_PATH=$ORIGIN/usr/lib/mozilla/plugins
-binary=/opt/mantra/Mantra/
+binary=/opt/mantra/Mantra/firefox
 exec=/opt/mantra/mantra
