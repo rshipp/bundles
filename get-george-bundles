@@ -1,12 +1,12 @@
 #!/bin/bash
-# get george's (unofficial) bundles
-BASEURL=""
-CHECKURL=""
+# get george's (unofficial, unsupported, not recommended or endorsed) bundles
+BASEURL="http://downloads.sourceforge.net/project/george-bundles/"
 ARCH="$(uname -m)"
+CHECKURL="${BASEURL}${ARCH}/versions"
 
 get() {
     echo "==> Checking for the latest version of the $1 bundle for $ARCH..."
-    bver=$(curl -l --silent "${CHECKURL}${ARCH}" | grep "$1" | sed 's/.* //g')
+    bver=$(wget -O-  "${CHECKURL}" 2>/dev/null| grep "$1" | sed 's/.* //g')
     if [[ -n $bver ]]; then
         echo -n "==> Found version $bver. " 
     else
@@ -21,7 +21,7 @@ get() {
         echo "Downloading..."
     fi
 
-    if wget "${BASEURL}${ARCH}${1}-${bver}-${ARCH}.cb"; then
+    if wget "${BASEURL}${ARCH}/${1}-${bver}-${ARCH}.cb"; then
         echo "==> $1-$bver-$ARCH downloaded successfully."
     else
         echo "==> Download failed."
