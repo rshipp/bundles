@@ -4,7 +4,7 @@
 # Contributor: Arch packagers
 
 pkgname=wireshark
-pkgver=1.6.8
+pkgver=1.8.0
 pkgrel=1
 pkgdesc='A free network protocol analyzer for Unix/Linux with a gtk2 frontend.'
 arch=('i686' 'x86_64')
